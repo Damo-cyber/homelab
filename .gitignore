@@ -1,3 +1,7 @@
+# Grafana data and plugins
+monitoring/grafana/
+
+# Environment and secrets
 .env
 *.env
 *.secret

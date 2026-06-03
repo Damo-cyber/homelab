@@ -1,3 +1,7 @@
+networks:
+  compose_default:
+    external: true
+
 services:
   prometheus:
     image: prom/prometheus:latest
@@ -7,6 +11,8 @@ services:
       - "9090:9090"
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - compose_default
 
   node-exporter:
     image: prom/node-exporter:latest
@@ -23,6 +29,8 @@ services:
       - '--path.sysfs=/host/sys'
       - '--path.rootfs=/rootfs'
       - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    networks:
+      - compose_default
 
   grafana:
     image: grafana/grafana-oss:latest
@@ -32,3 +40,5 @@ services:
       - "3000:3000"
     volumes:
       - ./grafana:/var/lib/grafana
+    networks:
+      - compose_default
