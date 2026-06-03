@@ -1,0 +1,5 @@
+.env
+*.env
+*.secret
+*password*
+*credentials*
