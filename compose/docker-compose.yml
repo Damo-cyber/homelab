@@ -1,3 +1,7 @@
+networks:
+  compose_default:
+    external: true
+
 services:
   portainer:
     image: portainer/portainer-ce:lts
@@ -9,6 +13,8 @@ services:
     volumes:
       - portainer_data:/data
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - compose_default
 
   nginx-proxy-manager:
     image: jc21/nginx-proxy-manager:latest
@@ -21,6 +27,8 @@ services:
     volumes:
       - portainer_data:/data
       - portainer_data:/etc/letsencrypt
+    networks:
+      - compose_default
 
   uptime-kuma:
     image: louislam/uptime-kuma:1
@@ -30,6 +38,17 @@ services:
       - "3001:3001"
     volumes:
       - portainer_data:/app/data
+    networks:
+      - compose_default
+
+  website:
+    image: nginx:alpine
+    container_name: website
+    restart: unless-stopped
+    volumes:
+      - /opt/homelab/website:/usr/share/nginx/html:ro
+    networks:
+      - compose_default
 
 volumes:
   portainer_data:

@@ -1,0 +1,7 @@
+tunnel: 01b03213-0b54-418a-9a59-637d534e8c0e
+credentials-file: /etc/cloudflared/01b03213-0b54-418a-9a59-637d534e8c0e.json
+
+ingress:
+  - hostname: movimovers.com
+    service: http://localhost:80
+  - service: http_status:404
